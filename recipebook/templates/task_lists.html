@@ -9,12 +9,7 @@
     <ul>
         {% for recipe in recipes %}
             <li>
-                <a href="{{ recipe.link }}">{{ recipe.name }}</a>
-                <ul>
-                    {% for ingredient in recipe.ingredients %}
-                        <li>{{ ingredient.name }} - {{ ingredient.quantity }}</li>
-                    {% endfor %}
-                </ul>
+                <a href="{% url 'ledger:detail' recipe.name %}">{{ recipe.name }}</a>
             </li>
         {% endfor %}
     </ul>

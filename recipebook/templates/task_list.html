@@ -7,9 +7,10 @@
 </head>
 <body>
     <ul>
-        {% for ingredient in ingredients %}
-            <li>{{ ingredient.name }} - {{ ingredient.quantity }}</li>
+        {% for ingredient in recipe.ingredients.all %}
+            <li>{{ ingredient.ingredient.name }} - {{ ingredient.quantity }}</li>
         {% endfor %}
     </ul>
+    <a href="{% url 'ledger:list' %}">Back to Recipes</a>
 </body>
 </html>
