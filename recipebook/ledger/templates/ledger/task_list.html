@@ -1,20 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Recipe List</title>
+    <title>{% block title %}Recipe Book{% endblock %}</title>
+    {% block styles %}{% endblock %}
+    <h1>Recipe Book</h1>
 </head>
 <body>
-    <h1>Recipes</h1>
     <ul>
-        {% for recipe in recipes %}
-            <li>
-                <a href="{{ recipe.link }}">{{ recipe.name }}</a>
-                <ul>
-                    {% for ingredient in recipe.ingredients %}
-                        <li>{{ ingredient.name }} - {{ ingredient.quantity }}</li>
-                    {% endfor %}
-                </ul>
-            </li>
+        {% for ingredient in ingredients %}
+            <li>{{ ingredient.name }} - {{ ingredient.quantity }}</li>
         {% endfor %}
     </ul>
 </body>
