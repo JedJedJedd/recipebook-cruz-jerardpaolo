@@ -5,7 +5,7 @@ from .models import Recipe
 
 def recipe_list(request):
     recipes = Recipe.objects.all()
-    return render(request, "recipe_list.html", {"recipes": recipes})
+    return render(request, "task_list.html", {"recipes": recipes})
 
 def recipe_detail(request, recipe_name):
     recipes = Recipe.objects.all()
@@ -13,4 +13,4 @@ def recipe_detail(request, recipe_name):
     for recipe in recipes:
         if recipe.name == recipe_name:
             recipe_list = recipe
-    return render(request, "recipe_detail.html", {"recipe": recipe_list})    
+    return render(request, "task_lists.html", {"recipe": recipe_list})    
