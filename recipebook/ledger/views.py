@@ -8,10 +8,10 @@ def recipe_list(request):
     return render(request, "task_lists.html", {"recipes": recipes})
 
 def recipe_detail(request, recipe_name):
-    recipes = Recipe.objects.all()
+    recipes = Recipe.objects.filter(name=recipe_name).first()
     recipe_list = None
     for recipe in recipes:
         if recipe.name == recipe_name:
             recipe_list = recipe
-    return render(request, "task_list.html", {"recipe": recipe_list})    
+    return render(request, "task_list.html", {"recipe": recipe})    
 
