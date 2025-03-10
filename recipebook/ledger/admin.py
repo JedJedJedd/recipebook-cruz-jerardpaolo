@@ -9,9 +9,10 @@ class IngredientAdmin(admin.ModelAdmin):
     list_filter = ('name',)
 
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    search_fields = ('name',)
-    list_filter = ('name',)
+    list_display = ('name', 'author', 'created_on', 'updated_on')
+    list_filter = ('author', 'created_on')
+    search_fields = ('name') 
+    ordering = ('-created_on',)
 
 class RecipeIngredientAdmin(admin.ModelAdmin):
     list_display = ('recipe', 'ingredient', 'quantity')
