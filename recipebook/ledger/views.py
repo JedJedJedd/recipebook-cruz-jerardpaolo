@@ -26,4 +26,4 @@ def custom_login(request):
     else:
         form = AuthenticationForm()
 
-    return render(request, "login.html", {"form": form})
+    return render(request, "registration/login.html", {"form": form})
