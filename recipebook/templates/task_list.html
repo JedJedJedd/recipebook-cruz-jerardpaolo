@@ -3,10 +3,13 @@
 <head>
     <title>{% block title %}Recipe Book{% endblock %}</title>
     {% block styles %}{% endblock %}
-    <h1>Recipe Book</h1> 
+    
 </head>
 <body>
+    <h1>Recipe Book</h1> 
     <h1>{{ recipe.name }}</h1>
+    <p>Posted by: {{ recipe.author.profile.name }}</p>
+    <p>Date: {{ recipe.created_on }}</p>
     <ul>
         {% for ingredient in recipe.ingredients.all %}
             <li>{{ ingredient.ingredient.name }} - {{ ingredient.quantity }}</li>
