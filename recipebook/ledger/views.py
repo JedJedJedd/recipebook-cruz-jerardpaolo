@@ -3,12 +3,14 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Recipe, RecipeIngredient
+from django.contrib.auth.decorators import login_required
 
 
 def recipe_list(request):
     recipes = Recipe.objects.all()
     return render(request, "task_lists.html", {"recipes": recipes})
 
+@login_required
 def recipe_detail(request, recipe_name):
     recipe = Recipe.objects.filter(name=recipe_name).first()
     ingredients = RecipeIngredient.objects.filter(recipe=recipe)
