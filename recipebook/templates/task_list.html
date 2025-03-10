@@ -11,9 +11,7 @@
     <p>Posted by: {{ recipe.author.profile.name }}</p>
     <p>Date: {{ recipe.created_on }}</p>
     <ul>
-        {% for ingredient in recipe.ingredients.all %}
-            <li>{{ ingredient.ingredient.name }} - {{ ingredient.quantity }}</li>
-        {% endfor %}
+        <p>{{ recipe.name }}</p>
     </ul>
     <a href="{% url 'ledger:list' %}">Back to Recipes</a>
 </body>

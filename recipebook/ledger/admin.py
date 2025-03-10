@@ -8,11 +8,16 @@ class IngredientAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_filter = ('name',)
 
+class RecipeIngredientInline(admin.TabularInline): 
+    model = RecipeIngredient
+    extra = 1
+
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ('name', 'author', 'created_on', 'updated_on')
     list_filter = ('author', 'created_on')
-    search_fields = ('name') 
+    search_fields = ('name',) 
     ordering = ('-created_on',)
+    inlines = [RecipeIngredientInline]
 
 class RecipeIngredientAdmin(admin.ModelAdmin):
     list_display = ('recipe', 'ingredient', 'quantity')
@@ -27,3 +32,7 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
+admin.site.register(Recipe, RecipeAdmin)
+admin.site.register(RecipeIngredient, RecipeIngredientAdmin)
+admin.site.register(Ingredient)
+admin.site.register(Profile)
