@@ -1,26 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{% block title %}Recipe Book{% endblock %}</title>
-    {% block styles %}{% endblock %}
-    <h1>Recipe Book</h1> 
-</head>
-<body>
-    {% if user.is_authenticated %}
-    <p>Welcome, {{ user.username }}!</p>
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-        </form>
-    {% else %}
-        <a href="{% url 'login' %}">Login</a>
-    {% endif %}
+{% extends "base.html" %}
+
+{% block title %}Recipes - Recipe Book{% endblock %}
+
+{% block page_title %}All Recipes{% endblock %}
+
+{% block content %}
     <ul>
         {% for recipe in recipes %}
             <li>
                 <a href="{% url 'ledger:detail' recipe.name %}">{{ recipe.name }}</a>
             </li>
+        {% empty %}
+            <li>No recipes available.</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

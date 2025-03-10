@@ -1,18 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{% block title %}Recipe Book{% endblock %}</title>
-    {% block styles %}{% endblock %}
-    
-</head>
-<body>
-    <h1>Recipe Book</h1> 
-    <h1>{{ recipe.name }}</h1>
-    <p>Posted by: {{ recipe.author.profile.name }}</p>
-    <p>Date: {{ recipe.created_on }}</p>
+{% extends "base.html" %}
+
+{% block title %}{{ recipe.name }} - Recipe Book{% endblock %}
+
+{% block page_title %}{{ recipe.name }}{% endblock %}
+
+{% block content %}
+    <p>By: {{ recipe.author.profile.name }}</p>
+    <p>Created on: {{ recipe.created_on|date:"F j, Y" }}</p>
+
+    <h2>Ingredients:</h2>
     <ul>
-        <p>{{ recipe.name }}</p>
+        {% for ingredient in ingredients %}
+            <li>{{ ingredient.ingredient.name }} - {{ ingredient.quantity }}</li>
+        {% empty %}
+            <li>No ingredients added.</li>
+        {% endfor %}
     </ul>
+
     <a href="{% url 'ledger:list' %}">Back to Recipes</a>
-</body>
-</html>
+{% endblock %}
