@@ -29,8 +29,10 @@
 
     <a href="{% url 'ledger:list' %}">Back to Recipes</a>
 
-    {% if user.is_authenticated %}
-        <a href="{% url 'ledger:add_image' recipe.id %}">Upload Image</a>
+    {% if recipe.pk %}
+        <a href="{% url 'ledger:add_image' recipe.pk %}">Upload Image</a>
+    {% else %}
+        <p>Cannot upload images for this recipe.</p>
     {% endif %}
 
 {% endblock %}
