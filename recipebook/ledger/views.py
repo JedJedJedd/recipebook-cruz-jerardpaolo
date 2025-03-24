@@ -5,6 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from .models import Recipe, RecipeIngredient, RecipeImage
 from django.contrib.auth.decorators import login_required
 from .forms import RecipeForm
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
 
 
 def recipe_list(request):
@@ -42,3 +44,15 @@ def add_recipe(request):
         form = RecipeForm()
 
     return render(request, "add_recipe.html", {"form": form})
+
+class AddRecipeImageView(CreateView):
+    model = RecipeImage
+    fields = ["image", "description"]
+    template_name = "image.html"
+
+    def form_valid(self, form):
+        form.instance.recipe_id = self.kwargs["pk"] 
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("ledger:detail", kwargs={"recipe_name": self.object.recipe.name})
