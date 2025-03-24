@@ -2,8 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
-from .models import Recipe, RecipeIngredient
+from .models import Recipe, RecipeIngredient, RecipeImage
 from django.contrib.auth.decorators import login_required
+from .forms import RecipeForm
 
 
 def recipe_list(request):
@@ -27,3 +28,17 @@ def custom_login(request):
         form = AuthenticationForm()
 
     return render(request, "registration/login.html", {"form": form})
+
+def add_recipe(request):
+    if request.method == "POST":
+        form = RecipeForm(request.POST)
+    if form.is_valid():
+        recipe = form.save(commit=False)
+        recipe.author = request.user
+        recipe.save()
+        return redirect("ledger:detail", recipe_name=recipe.name)
+        
+    else:
+        form = RecipeForm()
+
+    return render(request, "add_recipe.html", {"form": form})

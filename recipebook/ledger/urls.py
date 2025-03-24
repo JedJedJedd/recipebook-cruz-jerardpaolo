@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import recipe_list, recipe_detail, custom_login
+from .views import recipe_list, recipe_detail, custom_login, add_recipe
 from django.contrib.auth.views import LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -9,6 +9,7 @@ urlpatterns = [
     path('recipe/<str:recipe_name>/', recipe_detail, name='detail'),
     path('login/', custom_login, name='login'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+    path("recipe/add/", add_recipe, name="add_recipe")
 ]
 
 app_name = "ledger"
