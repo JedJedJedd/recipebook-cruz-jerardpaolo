@@ -7,7 +7,7 @@
 {% block content %}
 
     {% if user.is_authenticated %}
-        <a href="{% url 'ledger:add_recipe' %}">Add New Recipe</a>
+        <a href="{% url 'ledger:new_recipe' %}">Add New Recipe</a>
     {% endif %}
 
     <ul>

@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Recipe, RecipeIngredient, RecipeImage
 from django.contrib.auth.decorators import login_required
-from .forms import RecipeForm
+from .forms import RecipeForm, RecipeIngredientForm
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 
@@ -31,19 +31,28 @@ def custom_login(request):
 
     return render(request, "registration/login.html", {"form": form})
 
-def add_recipe(request):
+@login_required
+def new_recipe(request):
     if request.method == "POST":
         form = RecipeForm(request.POST)
-    if form.is_valid():
-        recipe = form.save(commit=False)
-        recipe.author = request.user
-        recipe.save()
-        return redirect("ledger:detail", recipe_name=recipe.name)
-        
+        ingredient_form = RecipeIngredientForm(request.POST)
+
+        if form.is_valid() and ingredient_form.is_valid():
+            recipe = form.save(commit=False)
+            recipe.author = request.user
+            recipe.save()
+
+            ingredient = ingredient_form.save(commit=False)
+            ingredient.recipe = recipe  
+            ingredient.save()
+
+            return redirect("ledger:detail", recipe_name=recipe.name)
+            
     else:
         form = RecipeForm()
+        ingredient_form = RecipeIngredientForm()
 
-    return render(request, "add_recipe.html", {"form": form})
+    return render(request, "add_recipe.html", {"form": form, "ingredient_form": ingredient_form})
 
 class AddRecipeImageView(CreateView):
     model = RecipeImage

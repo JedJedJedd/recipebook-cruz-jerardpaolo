@@ -8,6 +8,9 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
+
+        <h2>Ingredients</h2>
+        {{ ingredient_form.as_p }}
         <button type="submit">Create Recipe</button>
     </form>
 {% endblock %}
