@@ -2,6 +2,8 @@ from django.contrib import admin
 from .models import Ingredient, Recipe, RecipeIngredient, Profile
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
+from django.utils.html import format_html
+from .models import RecipeImage
 
 class IngredientAdmin(admin.ModelAdmin):
     list_display = ('name',)
@@ -29,6 +31,17 @@ class ProfileInline(admin.StackedInline):
 
 class UserAdmin(BaseUserAdmin):
     inlines = [ProfileInline]
+
+class RecipeImageInline(admin.TabularInline):
+    model = RecipeImage
+    extra = 1
+    
+class RecipeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'author', 'created_on', 'updated_on')
+    inlines = [RecipeImageInline]
+
+
+
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)

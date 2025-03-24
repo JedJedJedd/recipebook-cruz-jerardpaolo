@@ -8,7 +8,17 @@
     <p>By: {{ recipe.author.profile.name }}</p>
     <p>Created on: {{ recipe.created_on|date:"F j, Y" }}</p>
 
-    <h2>Ingredients:</h2>
+    <h2>Images:</h2>
+    <div>
+        {% for image in recipe.images.all %}
+            <img src="{{ image.image.url }}" alt="{{ image.description }}" style="max-width:300px;">
+            <p>{{ image.description }}</p>
+        {% empty %}
+            <p>No images uploaded.</p>
+        {% endfor %}
+    </div>
+
+    <h3>Ingredients:</h3>
     <ul>
         {% for ingredient in ingredients %}
             <li>{{ ingredient.ingredient.name }} - {{ ingredient.quantity }}</li>
